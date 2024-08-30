@@ -21,7 +21,7 @@ const App = () => {
   
   const [selected, setSelected] = useState(0)
 
-  //state for array of votes
+  //state for array of vot
   const [votes,setvotes] = useState(new Array(anecdotes.length).fill(0))
 
   //function for random anecdote
