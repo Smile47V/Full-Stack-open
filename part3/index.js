@@ -7,10 +7,10 @@ const app = express()
 app.use(express.json())
 
 morgan.token('body', (req) => {
-  return JSON.stringify(req.body);
+  return JSON.stringify(req.body); // a configured morgan function to keep tab logs
 });
 
-app.use(morgan(':method :url :status :body - :response-time ms'));
+app.use(morgan(':method :url :status :body - :response-time ms')); // this adds the morgan functionto the app
 app.use(cors())
 
 
