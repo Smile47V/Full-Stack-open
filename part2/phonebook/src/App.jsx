@@ -31,7 +31,18 @@ const App = () => {
  // to get details from the server
   useEffect(() => {
     call.getAll().then(res => {
-      setPersons(res.data)
+      console.log('api response:', res.data)
+      if (Array.isArray(res.data)){
+        setPersons(res.data);
+      } else{
+        console.error('Expected an array but got:', res.data)
+        setPersons([])
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching persons:', error);
+      setPersons([])
+      
     })
   }, [])
   
@@ -54,7 +65,7 @@ const App = () => {
         //server update
         call.update(nameExists.id, updatePerson)
         .then(response => {
-          setPersons(persons.map(person => person.id !== nameExists.id ? person : response.data)) // explain futher
+          setPersons(persons.map(person => person.id !== nameExists.id ? person : response.data)) // explain futher : if the id of the cmaped person is not the one that was chANGE RETURN IT PRVIOUS DETAL ELSE RETURN THE NEW ONE.
           setNewName('')
           setNewNum('')
         }).catch(error => {
@@ -104,6 +115,7 @@ const App = () => {
 
   //filter the person array based on the search 
 
+  //console.log('presons:', persons)
   const filtered = persons.filter(person =>
     person.name.toLowerCase().includes(look.toLocaleLowerCase())
   )
