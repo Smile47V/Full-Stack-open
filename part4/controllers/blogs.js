@@ -12,14 +12,22 @@ blogsRouter.get('/api/blogs', (request, response) => {
 
 
 
-blogsRouter.post('/api/blogs', (request, response) => {
-    const blog = new Blog(request.body)
-  
-    blog
-      .save()
-      .then(result => {
-        response.status(201).json(result)
-    })
+blogsRouter.post('/api/blogs', async (req, res) => {
+  const body = req.body;
+
+  if (!body.title || !body.url) {
+    return res.status(400).json({ error: 'title or url missing' });
+  }
+
+  const blog = new Blog({
+    title: body.title,
+    author: body.author,
+    url: body.url,
+    likes: body.likes || 0,
+  });
+
+  const savedBlog = await blog.save();
+  res.status(201).json(savedBlog);
 })
 
 

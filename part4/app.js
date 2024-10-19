@@ -5,33 +5,40 @@ const morgan = require('morgan')
 const cors = require('cors')
 const blogsRouter = require('./controllers/blogs')
 const logger = require('./utils/logger')
-const  mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
+// Use JSON middleware
 app.use(express.json())
 
+// Morgan token configuration for logging request body
 morgan.token('body', (req) => {
-    return JSON.stringify(req.body) // a configured morgan function to keep tab logs
+    return JSON.stringify(req.body) // log the request body
 })
 
-app.use(morgan(':method :url :status :body - :response-time ms')) // this adds the morgan functionto the app
+// Apply morgan and CORS middleware
+app.use(morgan(':method :url :status :body - :response-time ms'))
 app.use(cors())
 
+// Define route for blogs
 app.use('/api/blogs', blogsRouter)
 
-
-//mongoose use
+// Mongoose strict query option
 mongoose.set('strictQuery', false)
 
-logger.info(`conecting to`, process.env.MONGODB_URI)
+// Choose the MongoDB URI based on the environment (development or test)
+const MONGODB_URI = process.env.NODE_ENV === 'test'
+    ? process.env.MONGODB_URI_TEST // Use test database URI if running tests
+    : process.env.MONGODB_URI      // Use default URI for development/production
 
+logger.info(`Connecting to ${process.env.NODE_ENV === 'test' ? 'test' : 'development'} MongoDB`)
 
-// conecting to mogoose
-mongoose.connect(process.env.MONGODB_URI)
-.then(() => {
-    logger.info("connected to MongoDB")
-})
-.catch((error) =>{
-    logger.error("erro connecting to MongoDB", error.message)
-})
+// Connect to MongoDB
+mongoose.connect(MONGODB_URI)
+    .then(() => {
+        logger.info('Connected to MongoDB')
+    })
+    .catch((error) => {
+        logger.error('Error connecting to MongoDB:', error.message)
+    })
 
 module.exports = app
