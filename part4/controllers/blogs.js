@@ -38,7 +38,7 @@ blogsRouter.delete('/api/blogs/:id', async (req, res) => {
 });
 
 
-app.put('/api/blogs/:id', async (req, res) => {
+blogsRouter.put('/api/blogs/:id', async (req, res) => {
   const { id } = req.params;
   const { likes } = req.body;  // Assuming we only update likes
 
