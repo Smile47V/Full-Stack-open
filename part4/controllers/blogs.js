@@ -30,5 +30,29 @@ blogsRouter.post('/api/blogs', async (req, res) => {
   res.status(201).json(savedBlog);
 })
 
+blogsRouter.delete('/api/blogs/:id', async (req, res) => {
+  const { id } = req.params;
+
+  await Blog.findByIdAndRemove(id);
+  res.status(204).end();  // 204 No Content when deletion is successful
+});
+
+
+app.put('/api/blogs/:id', async (req, res) => {
+  const { id } = req.params;
+  const { likes } = req.body;  // Assuming we only update likes
+
+  const updatedBlog = await Blog.findByIdAndUpdate(
+    id,
+    { likes },  // Only updating the likes field
+    { new: true, runValidators: true }
+  );
+
+  if (updatedBlog) {
+    res.json(updatedBlog);
+  } else {
+    res.status(404).end();  // Blog not found
+  }
+});
 
 module.exports = blogsRouter
