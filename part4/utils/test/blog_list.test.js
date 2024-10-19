@@ -79,4 +79,67 @@ test('blog without title is not added', async () => {
       .send(newBlog)
       .expect(400);
 });
+
+
+test('a blog can be deleted', async () => {
+    // First, create a new blog to delete
+    const newBlog = {
+      title: 'Blog to be deleted',
+      author: 'Delete Author',
+      url: 'http://tobedeleted.com',
+      likes: 2,
+    };
+  
+    const blogResponse = await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/);
+  
+    const blogToDelete = blogResponse.body;
+  
+    // Perform the delete operation
+    await api
+      .delete(`/api/blogs/${blogToDelete.id}`)
+      .expect(204);
+  
+    // Verify that the blog is no longer in the database
+    const blogsAfter = await Blog.find({});
+    expect(blogsAfter).toHaveLength(0);  // Assuming only one blog was in the DB
+  
+    const titles = blogsAfter.map(b => b.title);
+    expect(titles).not.toContain(blogToDelete.title);
+  });
+
+
+
+  test('a blog\'s likes can be updated', async () => {
+    // First, create a new blog to update
+    const newBlog = {
+      title: 'Blog to be updated',
+      author: 'Update Author',
+      url: 'http://tobeupdated.com',
+      likes: 5,
+    };
+  
+    const blogResponse = await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/);
+  
+    const blogToUpdate = blogResponse.body;
+  
+    // Update the likes field
+    const updatedLikes = { likes: 10 };
+  
+    const updatedResponse = await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(updatedLikes)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+  
+    // Verify that the likes were updated
+    expect(updatedResponse.body.likes).toBe(10);
+  });
   
