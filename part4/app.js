@@ -4,6 +4,7 @@ const app = express()
 const morgan = require('morgan')
 const cors = require('cors')
 const blogsRouter = require('./controllers/blogs')
+const usersRouter = require('./controllers/users')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 
@@ -21,6 +22,7 @@ app.use(cors())
 
 // Define route for blogs
 app.use('/api/blogs', blogsRouter)
+app.use('/api/users', usersRouter)
 
 // Mongoose strict query option
 mongoose.set('strictQuery', false)

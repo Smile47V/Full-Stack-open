@@ -2,7 +2,7 @@ const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 
 
-blogsRouter.get('/api/blogs', (request, response) => {
+blogsRouter.get('/', (request, response) => {
     Blog
       .find({})
       .then(blogs => {
@@ -12,7 +12,7 @@ blogsRouter.get('/api/blogs', (request, response) => {
 
 
 
-blogsRouter.post('/api/blogs', async (req, res) => {
+blogsRouter.post('/', async (req, res) => {
   const body = req.body;
 
   if (!body.title || !body.url) {
@@ -30,7 +30,7 @@ blogsRouter.post('/api/blogs', async (req, res) => {
   res.status(201).json(savedBlog);
 })
 
-blogsRouter.delete('/api/blogs/:id', async (req, res) => {
+blogsRouter.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
   await Blog.findByIdAndRemove(id);
@@ -38,7 +38,7 @@ blogsRouter.delete('/api/blogs/:id', async (req, res) => {
 });
 
 
-blogsRouter.put('/api/blogs/:id', async (req, res) => {
+blogsRouter.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { likes } = req.body;  // Assuming we only update likes
 
