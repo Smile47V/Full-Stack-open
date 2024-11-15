@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const logger = require('./logger')
 
 const getTokenFrom = (request, response, next) => {
     const authorization = request.get('authorization')

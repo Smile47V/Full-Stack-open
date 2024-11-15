@@ -38,14 +38,14 @@ blogsRouter.post('/', async (req, res) => {
 
   const savedBlog = await blog.save();
   
-  user.blogs = user.blogs.concat(savedNote._id)
+  user.blogs = user.blogs.concat(savedBlog._id)
   await user.save()
 
   res.status(201).json(savedBlog);
 })
 
 blogsRouter.delete('/:id', async (req, res) => {
-  const { id } = req.params.id;
+  const { id } = req.params;
   try{
 
     // Authenticatesw token
