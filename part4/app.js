@@ -22,7 +22,7 @@ morgan.token('body', (req) => {
 app.use(morgan(':method :url :status :body - :response-time ms'))
 app.use(cors())
 app.use(midleware.getTokenFrom)
-app.use(midleware.userExtractor)
+//app.use(midleware.userExtractor)
 
 // Define route for blogs
 app.use('/api/blogs', blogsRouter)

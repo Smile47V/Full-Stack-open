@@ -22,4 +22,9 @@ const cereate = async (newObject) => {
   return response.data;
 };
 
-export default { getAll, cereate, setToken };
+const update = async (id, newObject) => {
+  const response = axios.put(`${baseUrl}/${id}`, newObject);
+  return response.data;
+};
+
+export default { getAll, cereate, setToken, update };

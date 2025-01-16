@@ -1,6 +1,6 @@
 import { useState } from "react";
-
-const Blog = ({ blog }) => {
+import blogService from "../services/blogs";
+const Blog = ({ blog, updateBlog }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const setVisible = () => {
@@ -15,6 +15,14 @@ const Blog = ({ blog }) => {
     marginBottom: 5,
   };
 
+  const handleLike = () => {
+    const updatedBlogData = {
+      ...blog,
+      likes: blog.likes + 1, // Increment the like count
+    };
+    updateBlog(blog._id, updatedBlogData); // Call updateBlog with the blog id and updated data
+  };
+
   return (
     <div style={blogStyle}>
       <div>
@@ -25,7 +33,11 @@ const Blog = ({ blog }) => {
         {showDetails && (
           <div>
             <p>{blog.url}</p>
-            <p>{blog.likes}</p>
+            <p>
+              {blog.likes}
+              <button onClick={handleLike}>Like</button>
+            </p>
+
             <p>{blog.user.username}</p>
           </div>
         )}

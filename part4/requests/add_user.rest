@@ -1,0 +1,99 @@
+### Create User 1
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "user1",
+    "name": "John Doe",
+    "password": "pass1234"
+}
+
+### Create User 2
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "user2",
+    "name": "Jane Smith",
+    "password": "password1"
+}
+
+### Create User 3
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "user3",
+    "name": "Alice Johnson",
+    "password": "qwerty"
+}
+
+### Create User 4
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "smile47",
+    "name": "Philip adegoke",
+    "password": "12345"
+}
+
+### Create User 5
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "user5",
+    "name": "Charlie Davis",
+    "password": "securepass"
+}
+
+### Create User 6
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "user6",
+    "name": "David Evans",
+    "password": "hello123"
+}
+
+### Create User 7
+POST http://localhost:3001/users
+Content-Type: application/json
+
+{
+    "username": "user7",
+    "name": "Emma Wilson",
+    "password": "mypassword"
+}
+
+### Create User 8
+POST http://localhost:3001/users
+Content-Type: application/json
+
+{
+    "username": "user8",
+    "name": "Fiona Green",
+    "password": "abcdef123"
+}
+
+### Create User 9
+POST http://localhost:3001/users
+Content-Type: application/json
+
+{
+    "username": "user9",
+    "name": "George Harris",
+    "password": "12345678"
+}
+
+### Create User 10
+POST http://localhost:3001/users
+Content-Type: application/json
+
+{
+    "username": "user10",
+    "name": "Hannah White",
+    "password": "adminpass"
+}

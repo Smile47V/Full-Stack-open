@@ -92,6 +92,8 @@ const App = () => {
     }
   };
 
+  //const likes = () = {}
+
   const createBlog = (event) => {
     event.preventDefault();
 
@@ -107,6 +109,20 @@ const App = () => {
       setauthor("");
       setUrl("");
     });
+  };
+
+  const updateBlog = async (id, updatedBlogData) => {
+    try {
+      const updatedBlog = await blogService.update(id, updatedBlogData);
+      setBlogs(
+        blogs.map((blog) => (blog._id === updatedBlog._id ? updatedBlog : blog))
+      );
+    } catch (error) {
+      setErrorMessage("Error updating blog.");
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
   };
 
   const handleName = (event) => setTitle(event.target.value);
@@ -141,7 +157,7 @@ const App = () => {
   const blogList = () =>
     (blogs || []).map((blog, idx) => (
       <div key={idx}>
-        <Blog blog={blog} />
+        <Blog blog={blog} updateBlog={updateBlog} />
       </div>
     ));
 
